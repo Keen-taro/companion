@@ -1,4 +1,4 @@
-# Unity generated files
+
 [Libraries]/
 Library/
 Temp/
@@ -8,7 +8,6 @@ Builds/
 Logs/
 MemoryCaptures/
 
-# User-specific files
 *.csproj
 *.unityproj
 *.sln
