@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12accd2319b536428b30f777e5b02be, type: 3}
+  m_Name: HeartHoader
+  m_EditorClassIdentifier: 
+  maxHealthPoint: 200
+  moveSpeed: 2
+  intervalBetweenSteate: 1
+  stoppingRange: 1.5
+  damageMeleeAttack: 10
+  damageStationaryAttack: 25
+  damageAirAttack: 15
+  attackRange: 1.5
+  chaseRange: 10
+  teleportRange: 0
+  knockbackAngleMelee: {x: 2, y: 1}
+  knockbackForceMelee: 2
+  knockbackAngleAir: {x: 3, y: 1}
+  knockbackForceAir: 2
+  knockbackAngleStationary: {x: 4, y: 1}
+  knockbackForceStationary: 2
+  detectionPauseTime: 1
+  playerDetectedWaitTime: 1
+  chaseTime: 2
+  chaseSpeed: 3
+  meleeDistance: 0
+  teleportDistance: 4
