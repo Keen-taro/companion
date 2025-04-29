@@ -13,6 +13,7 @@ public class UI_OpenAndClose : MonoBehaviour
     public GameObject TutorialPanel;
 
     private bool inGame;
+    private bool paused;
     public bool enableTutorial = true;
 
     private PlayerStateMachine players;
@@ -35,10 +36,16 @@ public class UI_OpenAndClose : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
         {
             PauseMenu.SetActive(true);
             players.canMove = false;
+            paused = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && paused)
+        {
+            ClosePauseMenu();
+            paused = false;
         }
 
         if (enableTutorial && inGame)
