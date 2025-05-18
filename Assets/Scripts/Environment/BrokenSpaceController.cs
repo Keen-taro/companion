@@ -4,43 +4,25 @@ using UnityEngine;
 
 public class BrokenSpaceController : MonoBehaviour
 {
+    public static BrokenSpaceController singleton;
+
     [SerializeField]
-    private Transform teleportPoint;
-    private PlayerStateMachine player;
-    private bool playerInArea;
+    private Transform teleportPointOne, teleportPointTwo;
 
-    private Transform playerPosition;
-
-    private void OnTriggerStay2D(Collider2D other)
+    private void Awake()
     {
-        if (other.CompareTag("Player"))
-        {
-            player = other.GetComponent<PlayerStateMachine>();
-            playerPosition = other.GetComponent<Transform>();
-
-        }
+        singleton = this;
     }
 
-    private void Update()
+    public void TeleportToTwo(Transform playerPosition)
     {
-        if (Input.GetKeyDown(KeyCode.F) && playerInArea)
-        {
-            StartCoroutine(EnterMindRealm());
-        }
+        playerPosition.position = teleportPointTwo.position;
     }
 
-    IEnumerator EnterMindRealm()
+    public void TeleportToOne(Transform playerPosition)
     {
-        // Play the transition
-        // Player diasble movement
-
-        yield return new WaitForSeconds(1.5f);
-
-        player.transform.position = teleportPoint.position;
-
-        yield return new WaitForSeconds(1f);
-
-        //Play the end transition animation (open screen)
-        //Enable player movement
+        playerPosition.position = teleportPointOne.position;
     }
+
+    
 }
