@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
-    public int numTp;
+    public Transform targetTeleporter; // Assign target teleporter langsung di Inspector
     private float tpCooldownTime = 1f, tpReady;
     private bool playerInArea;
     private Transform playerPosition;
@@ -13,10 +13,9 @@ public class Teleporter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerPosition = other.GetComponent<Transform>();
+            playerPosition = other.transform;
             playerInArea = true;
         }
-        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,17 +25,9 @@ public class Teleporter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && playerInArea && Time.time >= tpReady)
+        if (Input.GetKeyDown(KeyCode.F) && playerInArea && Time.time >= tpReady && targetTeleporter != null)
         {
-            if (numTp == 1)
-            {
-                BrokenSpaceController.singleton.TeleportToTwo(playerPosition);
-            }
-            else if (numTp == 2)
-            {
-                BrokenSpaceController.singleton.TeleportToOne(playerPosition);
-            }
-
+            playerPosition.position = targetTeleporter.position;
             tpReady = Time.time + tpCooldownTime;
         }
     }

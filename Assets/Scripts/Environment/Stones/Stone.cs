@@ -15,6 +15,8 @@ public class Stone : MonoBehaviour
     private Transform playerTransform; // Player's transform to follow the player
     private Vector3 offset = new Vector3(0, 2f, 0); // Position offset
 
+    private bool isPuzzleGridCompleted;
+    public GameObject GridPuzzleGameUnlockWithThis;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -32,6 +34,7 @@ public class Stone : MonoBehaviour
         {
             isPlayerInRange = false;
             playerTransform = null;
+            GridPuzzleGameUnlockWithThis.SetActive(false);
             //Debug.Log("Player left the trigger zone.");
         }
     }
@@ -47,9 +50,21 @@ public class Stone : MonoBehaviour
         //Debug.Log("The stone have tag: " + gameObject.tag);
         //Debug.Log("The stone have name: " + gameObject.name);
 
-
         if (isPlayerInRange && !isPickedUp && Input.GetKeyDown(KeyCode.F))
         {
+            if (!isPuzzleGridCompleted)
+            {
+                GridPuzzleGameUnlockWithThis.SetActive(true);
+                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().StartTimer();
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F) && !isPuzzleGridCompleted)
+            {
+                GridPuzzleGameUnlockWithThis.SetActive(false);
+                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().ResetTimeWhenClose();
+            }
+
             isPickedUp = true;
             PlayPickupSound();
             //Debug.Log("Picking up the stone");
@@ -70,6 +85,12 @@ public class Stone : MonoBehaviour
             isPickedUp = false;
         }
         
+    }
+
+    public void FinishThePuzzle()
+    {
+        isPuzzleGridCompleted = true;
+        GridPuzzleGameUnlockWithThis.SetActive(false);
     }
 
     public void Drop()

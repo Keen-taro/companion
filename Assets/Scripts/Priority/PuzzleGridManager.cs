@@ -20,8 +20,8 @@ public class PuzzleManager : MonoBehaviour
     public Sprite emptySlotSprite;       // Gambar slot kosong (opsional)
     public int attemptCount = 0;
 
-    private List<Slot> allSlots = new List<Slot>();        // Grid jawaban
-    private List<Slot> solutionSlots = new List<Slot>();   // Grid solusi
+    public List<Slot> allSlots = new List<Slot>();        // Grid jawaban
+    public List<Slot> solutionSlots = new List<Slot>();   // Grid solusi
     private List<Piece> allPieces = new List<Piece>();
 
     private float secondClock, minuteClock;
@@ -111,6 +111,9 @@ public class PuzzleManager : MonoBehaviour
 
         for (int i = 0; i < allSlots.Count; i++)
         {
+            //Debug
+            //Debug.Log($"Slot {i} - Answer: {allSlots[i].state}, Solution: {solutionSlots[i].state}");
+
             Slot answer = allSlots[i];
             Slot target = solutionSlots[i];
 

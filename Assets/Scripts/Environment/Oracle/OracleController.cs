@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OracleManager : MonoBehaviour
 {
+    public Timer timerOracle;
+
     private List<Oracle> selectedOracles = new List<Oracle>();  // List to hold selected oracles
     [SerializeField] private List<Oracle> answer = new List<Oracle>();
 
@@ -18,13 +20,6 @@ public class OracleManager : MonoBehaviour
         isComplete = false;
         litOracle = 0;
     }
-
-    /*
-    private void Start()
-    {
-        StartCoroutine(EnableColliderBoxAfterIntro());
-    }
-    */
 
     private void Update()
     {
@@ -90,6 +85,7 @@ public class OracleManager : MonoBehaviour
                 BubbleMemory.SetActive(true);
                 StartCoroutine(MoveUpCoroutine(2));
                 isComplete = true;
+                timerOracle.CompleteThePuzzle();
                 // Add success logic here (e.g., trigger next level, reward player)
             }
             else
@@ -122,7 +118,7 @@ public class OracleManager : MonoBehaviour
     {
         DisabelOracleCollision();
 
-        yield return new WaitForSeconds(3f); // Wait for the delay
+        yield return new WaitForSeconds(1f); // Wait for the delay
 
         foreach (Oracle oracle in answer)
         {

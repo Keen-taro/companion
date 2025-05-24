@@ -11,7 +11,7 @@ public enum SlotState
 
 public class Slot : MonoBehaviour
 {
-    public Image image;
+    public SpriteRenderer sprite;
 
     [Header("Slot State")]
     public SlotState state = SlotState.Empty;
@@ -24,8 +24,8 @@ public class Slot : MonoBehaviour
 
     private void Awake()
     {
-        if (image == null)
-            image = GetComponent<Image>();
+        if (sprite == null)
+            sprite = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -35,12 +35,12 @@ public class Slot : MonoBehaviour
     {
         if (state == SlotState.Empty)
         {
-            image.color = pieceColor;
+            sprite.color = pieceColor;
             state = SlotState.Occupied;
         }
         else if (state == SlotState.Occupied)
         {
-            image.color = mixedColor;
+            sprite.color = mixedColor;
             state = SlotState.Mixed;
         }
     }
@@ -50,7 +50,7 @@ public class Slot : MonoBehaviour
     /// </summary>
     public void SetInvalid()
     {
-        image.color = invalidColor;
+        sprite.color = invalidColor;
         state = SlotState.Invalid;
     }
 
@@ -59,8 +59,11 @@ public class Slot : MonoBehaviour
     /// </summary>
     public void Clear()
     {
-        state = SlotState.Empty;
-        image.color = baseColor;
+        if (state == SlotState.Empty)
+        {
+            state = SlotState.Empty;
+            sprite.color = baseColor;
+        }
     }
 
     /// <summary>
@@ -71,16 +74,16 @@ public class Slot : MonoBehaviour
         switch (state)
         {
             case SlotState.Empty:
-                image.color = baseColor;
+                sprite.color = baseColor;
                 break;
             case SlotState.Occupied:
-                image.color = occupiedColor;
+                sprite.color = occupiedColor;
                 break;
             case SlotState.Mixed:
-                image.color = mixedColor;
+                sprite.color = mixedColor;
                 break;
             case SlotState.Invalid:
-                image.color = invalidColor;
+                sprite.color = invalidColor;
                 break;
         }
     }

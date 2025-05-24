@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class OracleStarts : MonoBehaviour
 {
+    public Timer timerOracle;
+    public GameObject textTime;
+    private bool isStarting;
+
     [SerializeField] private OracleManager oracleManager;
     private ParticleSystem particleEffect;
 
@@ -40,19 +44,24 @@ public class OracleStarts : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !isStarting && !oracleManager.CheckIfComplete())
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 Debug.Log("oracle is singing");
                 oracleManager.StartPuzzle();
+                textTime.SetActive(true);
+                timerOracle.AddAttemp();
+                timerOracle.StartTimer();
+
+                isStarting = true;
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !oracleManager.CheckIfComplete() && !isStarting)
         {
             Debug.Log("Leaving Area Start");
             particleEffect.Stop();

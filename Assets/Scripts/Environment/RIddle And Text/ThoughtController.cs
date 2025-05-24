@@ -10,7 +10,6 @@ public class ThoughtController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
         {
             collision.GetComponent<PlayerStateMachine>().isReading = true;
@@ -20,6 +19,8 @@ public class ThoughtController : MonoBehaviour
                 collision.GetComponent<PlayerStateMachine>().isReading = false;
                 Destroy(gameObject);
             });
+
+            BubbleMemoryController.singleton.CollectedMemory();
         }
     }
 }

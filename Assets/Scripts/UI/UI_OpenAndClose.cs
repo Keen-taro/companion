@@ -11,6 +11,7 @@ public class UI_OpenAndClose : MonoBehaviour
     public GameObject PlayerUI;
     public GameObject ObjectiveUI;
     public GameObject TutorialPanel;
+    public GameObject StatusPanel;
 
     private bool inGame;
     private bool paused;
@@ -27,9 +28,10 @@ public class UI_OpenAndClose : MonoBehaviour
     public void StartGame()
     {
         MainMenu.SetActive(false);
-        PlayerUI.SetActive(true);
+        //PlayerUI.SetActive(true);
         ObjectiveUI.SetActive(true);
         TutorialPanel.SetActive(true);
+        StatusPanel.SetActive(false);
         players.canMove = true;
         inGame = true;
     }
@@ -56,6 +58,11 @@ public class UI_OpenAndClose : MonoBehaviour
         {
             TutorialPanel.SetActive(false);
         }
+    }
+
+    public void OpenStatus()
+    {
+        StatusPanel.SetActive(true);
     }
 
     public void ToggleTutorial()
@@ -96,6 +103,6 @@ public class UI_OpenAndClose : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        StatusPanel.SetActive(true);
     }
 }
