@@ -6,35 +6,49 @@ using TMPro;
 
 public class StatusPanel : MonoBehaviour
 {
-    public List<Timer> puzzleListAndTime = new List<Timer>();
+    public BubbleMemoryController bubbleMemoryController;
+
     public TextMeshProUGUI displayText;
+    public TextMeshProUGUI totalMemoryCollected;
+    public List<Timer> puzzleListAndTime;
 
-    private bool timeStart;
-    private float totalTime = 1205f;
-
-    private void Update()
+    private void Awake()
     {
-        for (int i = 0; i < puzzleListAndTime.Count; i++)
-        {
-            displayText.text += $"{puzzleListAndTime[i].displayName}: + " +
-                $"{puzzleListAndTime[i].minuteClock}:{puzzleListAndTime[i].secondClock:F0} +" +
-                    $"Attemp : {puzzleListAndTime[i].attempCount}\n \n";
-        }
-
-        if (timeStart && totalTime >= 0) //Game Start
-        {
-            totalTime -= Time.deltaTime;
-        }
-
-        if (totalTime == 0)
-        {
-            gameObject.SetActive(true);
-        }
+        // Inisialisasi referensi
+        if (displayText == null)
+            Debug.LogError("Text reference belum di-set!");
     }
 
-    private void StartTimeToDisplay()
+    private void Start()
     {
-        timeStart = true; 
+        // Nonaktifkan panel setelah inisialisasi
+        gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        // Update UI setiap kali panel dibuka
+        if (puzzleListAndTime != null)
+            UpdatePuzzleListDisplay();
+    }
+
+    // Dipanggil dari script lain untuk mengisi data
+    public void SetTimerData(List<Timer> timers)
+    {
+        puzzleListAndTime = timers;
+    }
+
+    private void UpdatePuzzleListDisplay()
+    {
+        displayText.text = "";
+        foreach (Timer timer in puzzleListAndTime)
+        {
+            displayText.text += $"{timer.displayName}: " +
+                $"{timer.minuteClock:00}:{timer.secondClock:00} " +
+                $"Attempt: {timer.attempCount}\n\n";
+        }
+
+        totalMemoryCollected.text = (bubbleMemoryController.collectedMemory + "  /  " + bubbleMemoryController.bubbleMemory.Length);
     }
 
     public void ContinueTheGame()

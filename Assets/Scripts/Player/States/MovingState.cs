@@ -32,6 +32,7 @@ public class MovingState : Player
     {
         base.LogicUpdate();
 
+
         if (player.playerStats.isDie) return;
 
         if (player.playerStats._isDashing) return;
@@ -39,6 +40,14 @@ public class MovingState : Player
         if (player.playerStats.move == 0 && player.isGrounded())
         {
             player.SwitchState(player.idleState);
+        }
+
+        player.playerStats.footstepTimer += Time.deltaTime;
+
+        if (player.playerStats.footstepTimer >= player.playerStats.footstepInterval)
+        {
+            player.PlayFootstepSound();
+            player.playerStats.footstepTimer = 0f;
         }
 
         if (Input.GetKeyDown(KeyCode.W) && player.isGrounded() && Time.time >= player.playerStats.jumpCooldown)

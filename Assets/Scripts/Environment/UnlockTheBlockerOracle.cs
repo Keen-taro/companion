@@ -7,17 +7,17 @@ public class UnlockTheBlockerOracle : MonoBehaviour
     [SerializeField] BoxCollider2D blockerCollider;
     [SerializeField] SpriteRenderer spriteBlocker;
 
-    [SerializeField] private OracleManager stoneToUnlock;
+    [SerializeField] private OracleManager oracleToUnlock;
 
 
     private void Update()
     {
-        if(stoneToUnlock != null)
+        if(oracleToUnlock != null)
         {
-            stoneToUnlock.GetComponent<OracleManager>();
+            oracleToUnlock.GetComponent<OracleManager>();
         }
 
-        if (stoneToUnlock.CheckIfComplete())
+        if (oracleToUnlock.CheckIfComplete())
         {
             blockerCollider.enabled = false;
             spriteBlocker.enabled = true;

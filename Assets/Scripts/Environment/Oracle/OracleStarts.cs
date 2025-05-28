@@ -46,7 +46,7 @@ public class OracleStarts : MonoBehaviour
     {
         if (collision.CompareTag("Player") && !isStarting && !oracleManager.CheckIfComplete())
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKey(KeyCode.F))
             {
                 Debug.Log("oracle is singing");
                 oracleManager.StartPuzzle();

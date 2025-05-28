@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2900227761082210229}
   - component: {fileID: 3512033673282723710}
   - component: {fileID: 8844707638400824289}
-  - component: {fileID: 4285002043166907224}
   - component: {fileID: 5426026299022254872}
+  - component: {fileID: 4285002043166907224}
   - component: {fileID: 3405862616224600874}
   - component: {fileID: 163938818421338319}
   m_Layer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 43116381
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5a427b81e7eb14b43adab594159b99d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -135,6 +135,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97, y: 3.2}
   m_EdgeRadius: 0
+--- !u!50 &5426026299022254872
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814045776414056748}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 3.104
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 9.8
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!95 &4285002043166907224
 Animator:
   serializedVersion: 5
@@ -156,33 +183,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &5426026299022254872
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814045776414056748}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 1.5209601
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 9.8
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!114 &3405862616224600874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,20 +195,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34b3303434493c49a43a67bed7b1054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tsBackground: {fileID: 0}
-  tsEnvironment: {fileID: 0}
-  tsTerrain: {fileID: 0}
-  isTrueSightActivated: 0
+  respawnTransition: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  audioStepClip: []
+  hurtAudioClip: {fileID: 0}
+  collectedMemory: {fileID: 0}
+  footstepInterval: 0.5
+  footstepRunInterval: 0.1
   movementSpeed: 3
   jumpForce: 30
   isFacingRight: 1
   isJumping: 0
   isRunning: 0
+  canMove: 0
   radius: 0.3
   groundChecker: {fileID: 5759171509195447811}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  anim: {fileID: 0}
 --- !u!114 &163938818421338319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +236,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  rb: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!1 &1395431253795147990
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,10 @@ public class Stone : MonoBehaviour
 
     private bool isPuzzleGridCompleted;
     public GameObject GridPuzzleGameUnlockWithThis;
-    
+
+    private Timer stoneTimer;
+    public GameObject temporaryCloseTutorial;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -43,6 +46,7 @@ public class Stone : MonoBehaviour
     {
         gameObject.tag = "Stone";
         audioSource = GetComponent<AudioSource>();
+        stoneTimer = gameObject.GetComponent<Timer>();
     }
 
     void Update()
@@ -54,17 +58,21 @@ public class Stone : MonoBehaviour
         {
             if (!isPuzzleGridCompleted)
             {
+                temporaryCloseTutorial.SetActive(false);
                 GridPuzzleGameUnlockWithThis.SetActive(true);
+                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().attempCount++;
                 GridPuzzleGameUnlockWithThis.GetComponent<Timer>().StartTimer();
                 return;
             }
 
             if (Input.GetKeyDown(KeyCode.F) && !isPuzzleGridCompleted)
             {
+                temporaryCloseTutorial.SetActive(true);
                 GridPuzzleGameUnlockWithThis.SetActive(false);
                 GridPuzzleGameUnlockWithThis.GetComponent<Timer>().ResetTimeWhenClose();
             }
 
+            stoneTimer.StartTimer();
             isPickedUp = true;
             PlayPickupSound();
             //Debug.Log("Picking up the stone");
@@ -90,6 +98,7 @@ public class Stone : MonoBehaviour
     public void FinishThePuzzle()
     {
         isPuzzleGridCompleted = true;
+        stoneTimer.CompleteThePuzzle();
         GridPuzzleGameUnlockWithThis.SetActive(false);
     }
 

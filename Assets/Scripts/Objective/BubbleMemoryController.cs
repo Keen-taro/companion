@@ -15,6 +15,7 @@ public class BubbleMemoryController : MonoBehaviour
     private void Awake()
     {
         singleton = this;
+        collectedMemory = 0;
         indicatorCollectedMemory.text = (collectedMemory +  "  /  " + bubbleMemory.Length);
     }
 

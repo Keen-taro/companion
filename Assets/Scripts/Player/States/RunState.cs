@@ -34,6 +34,14 @@ public class RunState : Player
 
         if (player.playerStats._isDashing) return;
 
+        player.playerStats.footstepTimer += Time.deltaTime;
+
+        if (player.playerStats.footstepTimer >= player.playerStats.footstepRunInterval && player.isGrounded())
+        {
+            player.PlayFootstepSound();
+            player.playerStats.footstepTimer = 0f;
+        }
+
         if (Input.GetMouseButtonDown(1) && player.playerStats._canDash && player.isGrounded())
         {
             player.SwitchState(player.dashState);

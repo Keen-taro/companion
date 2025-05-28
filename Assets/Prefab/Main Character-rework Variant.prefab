@@ -570,10 +570,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -7974535653874800096, guid: 1c9c8312498b06d4ea414ccee24bc863, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -674,6 +674,7 @@ MonoBehaviour:
   isFacingRight: 1
   isJumping: 0
   isRunning: 0
+  isReading: 0
   canMove: 1
   sanity: 0
   stateTime: 0
@@ -682,9 +683,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   respawnTransition: {fileID: 0}
-  audioStepClip: []
-  hurtAudioClip: {fileID: 0}
-  collectedMemory: {fileID: 0}
+  audioStepClip:
+  - {fileID: 8300000, guid: b56f70bc1f7ccea42ae450d374c77575, type: 3}
+  - {fileID: 8300000, guid: db2a88ea63a7b0147983ad7c6d20a67e, type: 3}
+  - {fileID: 8300000, guid: a2d3cf56ad52f1f4aab399b850addf60, type: 3}
+  - {fileID: 8300000, guid: 4a15feb615a96fa49acb4b8e4e00b69f, type: 3}
+  - {fileID: 8300000, guid: 159887b09b3d64d4ca9a5c57dd99602b, type: 3}
+  hurtAudioClip: {fileID: 8300000, guid: 69c1dcb49967785429c32198259aa5b2, type: 3}
+  collectedMemory: {fileID: 8300000, guid: a2b5c58d4556602449f1a5d0dd4e01f3, type: 3}
   rb: {fileID: 2377359359893105079}
   attackCollider: {fileID: 2293054409840665313}
   attackColliderHandler: {fileID: 4950060100157014726}

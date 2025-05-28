@@ -20,7 +20,8 @@ public class DeathState : Player
     public override void EnterState()
     {
         base.EnterState();
-        
+
+        player.PlayHurtSound();
         player.StartCoroutine(Res());
 
     }

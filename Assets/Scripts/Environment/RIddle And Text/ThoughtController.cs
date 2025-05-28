@@ -7,9 +7,17 @@ using TMPro;
 public class ThoughtController : MonoBehaviour
 {
     public Naration naration;
+    private bool hasPressedF = false;
+
+
+    private void Update()
+    {
+        
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        /*
         if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
         {
             collision.GetComponent<PlayerStateMachine>().isReading = true;
@@ -22,5 +30,12 @@ public class ThoughtController : MonoBehaviour
 
             BubbleMemoryController.singleton.CollectedMemory();
         }
+        */
+
+        if (collision.CompareTag("Player") && Input.GetKey(KeyCode.F))
+        {
+            BubbleMemoryController.singleton.CollectedMemory();
+            Destroy(gameObject);
+        }   
     }
 }

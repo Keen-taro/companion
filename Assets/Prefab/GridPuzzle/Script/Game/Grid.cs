@@ -13,7 +13,6 @@ public class Grid : MonoBehaviour
     public List<GridSquare> mainGrid = new List<GridSquare>();
     public List<GridSquare> solutionGrid = new List<GridSquare>();
 
-
     // Untuk event listener (contoh):
     void OnEnable()
     {
@@ -122,5 +121,12 @@ public class Grid : MonoBehaviour
                 child.gameObject.SetActive(true); // Pastikan grid square aktif
             }
         }
+
+        timerPuzzle.AddAttemp();
+    }
+
+    public void AttempAddAtFirstStart()
+    {
+        timerPuzzle.AddAttemp();
     }
 }

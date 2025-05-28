@@ -107,6 +107,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4-32x32 Life
       objectReference: {fileID: 0}
+    - target: {fileID: 2868002879122074816, guid: e321215f9ddc0f64f95a07b20dd21f6f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868002879122074816, guid: e321215f9ddc0f64f95a07b20dd21f6f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868002879122074816, guid: e321215f9ddc0f64f95a07b20dd21f6f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -380623361
+      objectReference: {fileID: 0}
     - target: {fileID: 4873579816273848533, guid: e321215f9ddc0f64f95a07b20dd21f6f, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 

@@ -176,7 +176,7 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
 
     public void Damage(float damageAmount)
     {
-        //audioSource.PlayOneShot(hitSound);
+        audioSource.PlayOneShot(hurtAudioClip);
         Debug.Log("Player Hit");
 
         sanity -= damageAmount;
@@ -191,9 +191,25 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
 
     #endregion
 
+    #region SoundFX
     public void PlayCollectedSound()
     {
-        //audioSource.PlayOneShot(collectedMemory);
+        audioSource.PlayOneShot(collectedMemory);
         Debug.Log("Memory Collected");
     }
+
+    public void PlayFootstepSound()
+    {
+        if (audioStepClip != null)
+        {
+            AudioClip footstepClip = audioStepClip[Random.Range(0, audioStepClip.Length)];
+            audioSource.PlayOneShot(footstepClip);
+        }
+    }
+
+    public void PlayHurtSound()
+    {
+        audioSource.PlayOneShot(hurtAudioClip);
+    }
+    #endregion
 }

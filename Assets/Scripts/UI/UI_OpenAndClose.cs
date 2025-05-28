@@ -15,6 +15,7 @@ public class UI_OpenAndClose : MonoBehaviour
 
     private bool inGame;
     private bool paused;
+    private bool alreadyOpenTheStatusPanel;
     public bool enableTutorial = true;
 
     private PlayerStateMachine players;
@@ -98,11 +99,19 @@ public class UI_OpenAndClose : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        if (!alreadyOpenTheStatusPanel)
+        {
+            StatusPanel.SetActive(true);
+            alreadyOpenTheStatusPanel = true;
+
+            return;
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Exit()
     {
-        StatusPanel.SetActive(true);
+        Application.Quit();
     }
 }
