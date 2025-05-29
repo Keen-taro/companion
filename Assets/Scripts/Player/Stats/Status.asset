@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: Status
   m_EditorClassIdentifier: 
   maxSanityPoint: 150
-  jumpForce: 65
-  jumpCooldown: 13.010556
+  jumpForce: 30
+  jumpCooldown: 34.309002
   isDie: 0
   moveSpeed: 3
   move: 0
   runSpeed: 7
   dashSpeed: 20
   dashDistance: 15
-  dashingTime: -0.019997705
+  dashingTime: -0.02
   _isDashing: 0
   _canDash: 1
   footstepInterval: 0.5
   footstepRunInterval: 0.25
-  footstepTimer: 0
+  footstepTimer: 0.28932354
   gridSize: 0
   radius: 0.3
-  attackAvailableTime: 0
-  attackComboTimer: 0
+  attackAvailableTime: 3.4181824
+  attackComboTimer: 4.0681825
   attackDamage:
   - 5
   - 5

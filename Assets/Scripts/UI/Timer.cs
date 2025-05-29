@@ -19,7 +19,10 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timePass;
     public TextMeshProUGUI attempCountText;
 
-
+    private void Awake()
+    {
+        attempCount = 0;
+    }
     // Update waktu (contoh)
     void Update()
     {

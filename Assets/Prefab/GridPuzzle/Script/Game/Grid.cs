@@ -99,6 +99,7 @@ public class Grid : MonoBehaviour
         {
             Debug.Log("Jawaban benar!");
             relatedStone.FinishThePuzzle();
+            timerPuzzle.CompleteThePuzzle();
         }
         else if(!isCorrect)
         {

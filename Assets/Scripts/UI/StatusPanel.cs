@@ -54,6 +54,7 @@ public class StatusPanel : MonoBehaviour
     public void ContinueTheGame()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void ExitTheGame()

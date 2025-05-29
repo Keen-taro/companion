@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class BubbleMemory : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    private bool playerInTheArea;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && playerInTheArea)
+        {
+            BubbleMemoryController.singleton.CollectedMemory();
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerStateMachine>().PlayCollectedSound();
-            BubbleMemoryController.singleton.CollectedMemory();
-
-            Destroy(gameObject);
+            playerInTheArea = true;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        playerInTheArea = false;
     }
 }

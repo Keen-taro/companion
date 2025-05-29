@@ -18,7 +18,7 @@ public class Stone : MonoBehaviour
     private bool isPuzzleGridCompleted;
     public GameObject GridPuzzleGameUnlockWithThis;
 
-    private Timer stoneTimer;
+    public Timer stoneTimer;
     public GameObject temporaryCloseTutorial;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,7 +46,11 @@ public class Stone : MonoBehaviour
     {
         gameObject.tag = "Stone";
         audioSource = GetComponent<AudioSource>();
-        stoneTimer = gameObject.GetComponent<Timer>();
+
+        if (stoneTimer == null)
+        {
+            Debug.Log("Stone Timer not found");
+        }
     }
 
     void Update()
@@ -60,8 +64,8 @@ public class Stone : MonoBehaviour
             {
                 temporaryCloseTutorial.SetActive(false);
                 GridPuzzleGameUnlockWithThis.SetActive(true);
-                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().attempCount++;
                 GridPuzzleGameUnlockWithThis.GetComponent<Timer>().StartTimer();
+                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().attempCount++;
                 return;
             }
 
@@ -72,8 +76,8 @@ public class Stone : MonoBehaviour
                 GridPuzzleGameUnlockWithThis.GetComponent<Timer>().ResetTimeWhenClose();
             }
 
-            stoneTimer.StartTimer();
             isPickedUp = true;
+            stoneTimer.StartTimer();
             PlayPickupSound();
             //Debug.Log("Picking up the stone");
         }
@@ -98,14 +102,11 @@ public class Stone : MonoBehaviour
     public void FinishThePuzzle()
     {
         isPuzzleGridCompleted = true;
-        stoneTimer.CompleteThePuzzle();
         GridPuzzleGameUnlockWithThis.SetActive(false);
     }
 
     public void Drop()
     {
-        //Debug.Log("Stone dropped.");
-        // Simply stop following the player and place it slightly below its current position
         transform.position = transform.position - offset;
     }
 

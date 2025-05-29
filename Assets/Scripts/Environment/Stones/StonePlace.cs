@@ -56,8 +56,10 @@ public class StonePlace : MonoBehaviour
         }
         else
         {
+            assignedStone.GetComponent<Timer>().CompleteThePuzzle();
             Debug.Log("Stone placed in correct position.");
             isComplete = true;
+
             CheckElementAnswer();
             StartCoroutine(WaitBeforeDeactivateScript());
         }

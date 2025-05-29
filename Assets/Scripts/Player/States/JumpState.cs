@@ -21,8 +21,7 @@ public class JumpState : Player
         base.EnterState();
         player.playerStats.jumpCooldown = Time.time + 0.3f;
 
-        player.rb.AddForce(Vector2.up * player.playerStats.jumpForce, ForceMode2D.Impulse);
-
+        player.rb.velocity = new Vector2(10f * player.playerStats.move, player.playerStats.jumpForce);
     }
 
     public override void ExitState()

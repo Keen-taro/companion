@@ -12,6 +12,8 @@ public class BubbleMemoryController : MonoBehaviour
     public GameObject[] bubbleMemory;
     public int collectedMemory;
 
+    public GameObject statusPanel;
+
     private void Awake()
     {
         singleton = this;
@@ -25,7 +27,8 @@ public class BubbleMemoryController : MonoBehaviour
 
         if (collectedMemory == bubbleMemory.Length)
         {
-            //Unlock Second lvl or second boss
+            statusPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
