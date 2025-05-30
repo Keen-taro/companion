@@ -55,9 +55,7 @@ public class Stone : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("The stone have tag: " + gameObject.tag);
-        //Debug.Log("The stone have name: " + gameObject.name);
-
+        // 1. Handle Input & Interaksi (Tetap di Update)
         if (isPlayerInRange && !isPickedUp && Input.GetKeyDown(KeyCode.F))
         {
             if (!isPuzzleGridCompleted)
@@ -69,34 +67,34 @@ public class Stone : MonoBehaviour
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.F) && !isPuzzleGridCompleted)
-            {
-                temporaryCloseTutorial.SetActive(true);
-                GridPuzzleGameUnlockWithThis.SetActive(false);
-                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().ResetTimeWhenClose();
-            }
-
             isPickedUp = true;
             stoneTimer.StartTimer();
             PlayPickupSound();
-            //Debug.Log("Picking up the stone");
         }
 
-        if (isPickedUp && playerTransform != null)
+        // 2. Reset Posisi Batu (Tetap di Update)
+        if (isPickedUp && Input.GetKeyDown(KeyCode.L))
         {
-            // Follow the player with an offset
+            if (playerTransform == null) Debug.Log("Player Missing");
             transform.position = playerTransform.position + offset;
         }
 
-        
+        // 3. Drop Batu (Tetap di Update)
         if (Input.GetKeyDown(KeyCode.G) && isPickedUp)
         {
-            // Drop the stone
             Drop();
             PlayDropSound();
             isPickedUp = false;
         }
-        
+    }
+
+    private void LateUpdate()
+    {
+        // 4. Update Posisi Batu ke Pemain (Pindah ke LateUpdate)
+        if (isPickedUp)
+        {
+            transform.position = playerTransform.position + offset;
+        }
     }
 
     public void FinishThePuzzle()

@@ -99,15 +99,12 @@ public class UI_OpenAndClose : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        if (!alreadyOpenTheStatusPanel)
-        {
-            StatusPanel.SetActive(true);
-            alreadyOpenTheStatusPanel = true;
-
-            return;
-        }
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BeforeExitTheGame()
+    {
+        StatusPanel.SetActive(true);
     }
 
     public void Exit()
