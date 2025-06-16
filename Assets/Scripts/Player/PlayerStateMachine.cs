@@ -129,6 +129,31 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
         stateTime = Time.time;
     }
 
+    public void ResetState()
+    {
+        // Reset semua status dasar
+        canMove = true;
+        isJumping = false;
+        isRunning = false;
+
+        // Reset stat player
+        sanity = playerStats.maxSanityPoint;
+        playerStats.isDie = false;
+        playerStats._canDash = true;
+        playerStats.attackComboTimer = 0;
+        playerStats.jumpCooldown = 0;
+
+        // Reset fisika
+        rb.velocity = Vector2.zero;
+
+        // Reset animator
+        animator.Rebind();
+        animator.Update(0f);
+
+        // Paksa transisi ke idle state
+        SwitchState(idleState);
+    }
+
     #region Ground Check
 
     public bool isGrounded()

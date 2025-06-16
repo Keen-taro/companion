@@ -1,84 +1,128 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public float moveSpeed = 5f;  // Speed of movement
-    public bool moveHorizontal = true;  // If true, move horizontally (X-axis)
-    public bool moveVertical = false;  // If true, move vertically (Y-axis)
+    public static MovingPlatform singleton;
 
-    public float maxDistance = 5f;  // Maximum distance the object can move
-    private float startPosition;  // Initial position when the movement starts
-    private bool movingForward = true;  // Direction of movement
+    public float moveSpeed = 5f;
+    public bool moveHorizontal = true;
+    public bool moveVertical = false;
+    public float maxDistance = 5f;
 
-    private Transform playerTransform;  // To store the player's transform
+    private Vector3 startPosition;
+    private bool movingForward = true;
+    private Transform playerTransform;
+    private Vector3 lastPosition;
 
     void Start()
     {
-        // Save the initial position based on horizontal or vertical direction
-        startPosition = moveHorizontal ? transform.position.x : transform.position.y;
+        startPosition = transform.position;
+        lastPosition = transform.position;
+        singleton = this;
     }
 
-    void Update()
+    void FixedUpdate()
+    {
+        // Simpan posisi sebelum bergerak
+        Vector3 previousPosition = transform.position;
+
+        // Hitung pergerakan
+        Vector3 movement = CalculateMovement();
+
+        // Terapkan pergerakan
+        transform.position += movement;
+
+        // Pastikan tidak melebihi batas
+        EnsureWithinBounds();
+
+        // Pindahkan player jika ada
+        MovePlayerWithPlatform(previousPosition);
+
+        // Simpan posisi terakhir
+        lastPosition = transform.position;
+    }
+
+    Vector3 CalculateMovement()
     {
         Vector3 movement = Vector3.zero;
-        float currentPosition = moveHorizontal ? transform.position.x : transform.position.y;
+        float direction = movingForward ? 1 : -1;
 
-        // Move the platform in the specified direction
         if (moveHorizontal)
         {
-            if (movingForward)
-                movement.x = moveSpeed * Time.deltaTime;
-            else
-                movement.x = -moveSpeed * Time.deltaTime;
-        }
-
-        if (moveVertical)
-        {
-            if (movingForward)
-                movement.y = moveSpeed * Time.deltaTime;
-            else
-                movement.y = -moveSpeed * Time.deltaTime;
-        }
-
-        // Apply platform movement
-        transform.Translate(movement);
-
-        // Move the player along with the platform if the player is on it
-        if (playerTransform != null)
-        {
-            playerTransform.position += movement;
-        }
-
-        // Check if the platform has reached the max distance
-        if (moveHorizontal)
-        {
-            if (Mathf.Abs(transform.position.x - startPosition) >= maxDistance)
-                movingForward = !movingForward;  // Reverse direction
+            movement.x = direction * moveSpeed * Time.fixedDeltaTime;
         }
         else if (moveVertical)
         {
-            if (Mathf.Abs(transform.position.y - startPosition) >= maxDistance)
-                movingForward = !movingForward;  // Reverse direction
+            movement.y = direction * moveSpeed * Time.fixedDeltaTime;
+        }
+
+        return movement;
+    }
+
+    void EnsureWithinBounds()
+    {
+        Vector3 currentPosition = transform.position;
+        float distanceFromStart = Vector3.Distance(currentPosition, startPosition);
+
+        // Jika melebihi batas, koreksi posisi
+        if (distanceFromStart > maxDistance)
+        {
+            Vector3 direction = (currentPosition - startPosition).normalized;
+            transform.position = startPosition + direction * maxDistance;
+            movingForward = !movingForward;
+        }
+
+        // Periksa apakah perlu membalik arah
+        float currentAxisPosition = moveHorizontal ? transform.position.x : transform.position.y;
+        float startAxisPosition = moveHorizontal ? startPosition.x : startPosition.y;
+
+        if (Mathf.Abs(currentAxisPosition - startAxisPosition) >= maxDistance - 0.1f)
+        {
+            movingForward = !movingForward;
         }
     }
 
-    // Detect when the player is on the platform
+    void MovePlayerWithPlatform(Vector3 previousPosition)
+    {
+        if (playerTransform != null)
+        {
+            // Hitung pergerakan aktual platform
+            Vector3 actualMovement = transform.position - previousPosition;
+
+            // Terapkan ke player
+            playerTransform.position += actualMovement;
+        }
+    }
+
+    public void ResetPlatform()
+    {
+        // Koreksi posisi platform
+        transform.position = startPosition;
+        movingForward = true;
+
+        // Koreksi posisi player relatif
+        if (playerTransform != null)
+        {
+            // Hitung offset terakhir
+            Vector3 offset = playerTransform.position - lastPosition;
+            playerTransform.position = startPosition + offset;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerTransform = collision.transform;  // Assign the player's transform
+            playerTransform = collision.transform;
         }
     }
 
-    // When the player leaves the platform, stop moving with it
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerTransform = null;  // Nullify the player reference
+            playerTransform = null;
         }
     }
 }
