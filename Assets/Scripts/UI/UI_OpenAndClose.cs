@@ -12,6 +12,7 @@ public class UI_OpenAndClose : MonoBehaviour
     public GameObject ObjectiveUI;
     public GameObject TutorialPanel;
     public GameObject StatusPanel;
+    public GameObject CreditPanel;
 
     private bool inGame;
     private bool paused;
@@ -24,6 +25,7 @@ public class UI_OpenAndClose : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         players = player.GetComponent<PlayerStateMachine>();
+        CreditPanel.SetActive(false);
     }
 
     public void StartGame()
@@ -95,6 +97,11 @@ public class UI_OpenAndClose : MonoBehaviour
         {
             PauseMenu.SetActive(true);
         }
+    }
+
+    public void OpenAndCloseCredit()
+    {
+        CreditPanel.SetActive(!CreditPanel.activeSelf);
     }
 
     public void ReturnToMenu()
