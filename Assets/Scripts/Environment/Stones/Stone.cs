@@ -12,6 +12,9 @@ public class Stone : MonoBehaviour
 
     public bool isPickedUp = false; // Whether the stone is picked up
     public bool isPlayerInRange = false; // Whether the player is in the trigger zone
+    public bool isInsideLight = false;
+    private bool noLightNearStone;
+
     private Transform playerTransform; // Player's transform to follow the player
     private Vector3 offset = new Vector3(0, 2f, 0); // Position offset
 
@@ -62,13 +65,18 @@ public class Stone : MonoBehaviour
             {
                 temporaryCloseTutorial.SetActive(false);
                 GridPuzzleGameUnlockWithThis.SetActive(true);
-                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().StartTimer();
-                GridPuzzleGameUnlockWithThis.GetComponent<Timer>().attempCount++;
+                //GridPuzzleGameUnlockWithThis.GetComponent<Timer>().StartTimer();
+                //GridPuzzleGameUnlockWithThis.GetComponent<Timer>().attempCount++;
                 return;
             }
 
+            if (isInsideLight)
+            {
+
+            }
+
             isPickedUp = true;
-            stoneTimer.StartTimer();
+            //stoneTimer.StartTimer();
             PlayPickupSound();
         }
 

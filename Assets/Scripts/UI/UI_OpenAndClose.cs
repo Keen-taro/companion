@@ -2,116 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
+
 
 public class UI_OpenAndClose : MonoBehaviour
 {
-    public GameObject MainMenu;
-    public GameObject SettingMenu;
-    public GameObject PauseMenu;
-    public GameObject PlayerUI;
-    public GameObject ObjectiveUI;
-    public GameObject TutorialPanel;
-    public GameObject StatusPanel;
-    public GameObject CreditPanel;
-
-    private bool inGame;
     private bool paused;
-    private bool alreadyOpenTheStatusPanel;
     public bool enableTutorial = true;
 
-    private PlayerStateMachine players;
+    private PlayerControllerSimplified players;
+    public PlayableDirector director;
 
     private void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        players = player.GetComponent<PlayerStateMachine>();
-        CreditPanel.SetActive(false);
+        players = player.GetComponent<PlayerControllerSimplified>();
     }
 
     public void StartGame()
     {
-        MainMenu.SetActive(false);
-        //PlayerUI.SetActive(true);
-        ObjectiveUI.SetActive(true);
-        TutorialPanel.SetActive(true);
-        StatusPanel.SetActive(false);
-        players.canMove = true;
-        inGame = true;
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !paused)
+        if (director != null)
         {
-            PauseMenu.SetActive(true);
-            players.canMove = false;
-            paused = true;
+            director.Play();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && paused)
-        {
-            ClosePauseMenu();
-            paused = false;
-        }
-
-        if (enableTutorial && inGame)
-        {
-            TutorialPanel.SetActive(true);
-        }
-        else
-        {
-            TutorialPanel.SetActive(false);
-        }
-    }
-
-    public void OpenStatus()
-    {
-        StatusPanel.SetActive(true);
-    }
-
-    public void ToggleTutorial()
-    {
-        enableTutorial = !enableTutorial;
-    }
-
-    public void ClosePauseMenu()
-    {
-        PauseMenu.SetActive(false);
-        players.canMove = true;
-    }
-
-    public void OpenSetting()
-    {
-        if (PauseMenu.activeSelf)
-        {
-            PauseMenu.SetActive(false);
-        }
-
-        SettingMenu.SetActive(true);
-    }
-
-    public void CloseSetting()
-    {
-        SettingMenu.SetActive(false);
-
-        if (inGame)
-        {
-            PauseMenu.SetActive(true);
-        }
-    }
-
-    public void OpenAndCloseCredit()
-    {
-        CreditPanel.SetActive(!CreditPanel.activeSelf);
     }
 
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void BeforeExitTheGame()
-    {
-        StatusPanel.SetActive(true);
     }
 
     public void Exit()

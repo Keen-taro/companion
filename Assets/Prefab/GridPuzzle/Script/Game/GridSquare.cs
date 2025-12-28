@@ -2,85 +2,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class GridSquare : MonoBehaviour
+// TAMBAHKAN 'IPointerClickHandler' DI SINI
+public class GridSquare : MonoBehaviour, IPointerClickHandler
 {
-    public Image hoverImage;
-    public Image activeImage;
+    public Image activeImage;  
     public Image normalImage;
-    public List<Sprite> normalImages;
-    [SerializeField] private Image feedbackImage; // Referensi ke UI Image
+    public Image disableImage;
 
-    public bool Selected { get; set; }
-    public int SquareIndex { get; set; }
-    public bool SquareOccupied;
+    public bool isActivate;
+    public bool disableGrid;
+    public bool inCutscene;
+    public bool alreadyComplete;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        Selected = false;
-        SquareOccupied = false;
+        // Panggil ResetGridSquare agar status awalnya bersih
+        isActivate = false;
+        ResetGridSquare();
+
+        if (disableGrid && disableImage != null)
+        {
+            disableImage.gameObject.SetActive(true);
+        }
     }
 
-    //temp function. REMOVE
-    public bool CanWeUseThisSquare()
+    public void DisableGrid()
     {
-        return hoverImage.gameObject.activeSelf;
+        alreadyComplete = true;
     }
 
-    public void ActivateSquare()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        hoverImage.gameObject.SetActive(false);
-        activeImage.gameObject.SetActive(true);
-        Selected = true;
-        SquareOccupied = true;
+        isActivate = !isActivate;
+
+        if (disableGrid) return;
+
+        if (isActivate)
+        {
+            // Tampilkan status "ON"
+            normalImage.gameObject.SetActive(false);
+            activeImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            // Tampilkan status "OFF"
+            normalImage.gameObject.SetActive(true);
+            activeImage.gameObject.SetActive(false);
+        }
     }
 
     public void ResetGridSquare()
     {
-        SquareOccupied = false;
-        Selected = false;
+
+        if (disableGrid) return;
+
+        isActivate = false;
+        // Selected = false; // Hapus
         normalImage.gameObject.SetActive(true);
-        hoverImage.gameObject.SetActive(false);
+        // hoverImage.gameObject.SetActive(false); // Hapus
         activeImage.gameObject.SetActive(false);
-    }
-
-    public void SetImage(bool setFirstImage)
-    {
-        normalImage.GetComponent<Image>().sprite = setFirstImage ? normalImages[1] : normalImages[0];
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        hoverImage.gameObject.SetActive(true);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        hoverImage.gameObject.SetActive(true);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        hoverImage.gameObject.SetActive(false);
-    }
-
-    public void ShowCorrectFeedback()
-    {
-        feedbackImage.color = Color.green;
-        StartCoroutine(ResetFeedback());
-    }
-
-    public void ShowIncorrectFeedback()
-    {
-        feedbackImage.color = Color.red;
-        StartCoroutine(ResetFeedback());
-    }
-
-    private IEnumerator ResetFeedback()
-    {
-        yield return new WaitForSeconds(0.5f);
-        feedbackImage.color = Color.white;
     }
 }

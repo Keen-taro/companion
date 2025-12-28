@@ -6,13 +6,25 @@ using TMPro;
 
 public class ThoughtController : MonoBehaviour
 {
-    public Naration naration;
-    private bool hasPressedF = false;
-
+    public TextMeshProUGUI dialogueTextElement; // Dialogue Box
 
     private void Update()
     {
         
+    }
+
+    void StartDialogue(string text)
+    {
+        StartCoroutine(TypeLine(text));
+    }
+
+    IEnumerator TypeLine(string text)
+    {
+        foreach (char c in text.ToCharArray())
+        {
+            dialogueTextElement.text += c;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

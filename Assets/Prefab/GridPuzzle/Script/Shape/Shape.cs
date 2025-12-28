@@ -80,30 +80,6 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
         return true; // Semua square menempel di suatu grid (occupied atau tidak)
     }
 
-    public void DeactivateShape()
-    {
-        if (_shapeActive)
-        {
-            foreach (var square in _currentShape)
-            {
-                square?.GetComponent<ShapeSquare>().DeactivateShape();
-            }
-        }
-        _shapeActive = false;
-    }
-
-    public void ActivateShape()
-    {
-        if (!_shapeActive)
-        {
-            foreach (var square in _currentShape)
-            {
-                square?.GetComponent<ShapeSquare>().ActivateShape();
-            }
-        }
-        _shapeActive = true;
-    }
-
     public void RequestNewShape(ShapeData shapeData)
     {
         transform.localPosition = _startPosition;
@@ -358,7 +334,7 @@ public class Shape : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IBe
         transform.localScale = Vector3.one;
 
         // Reset state
-        ActivateShape();
+        //ActivateShape();
 
         // Reset grid yang pernah dihover
         ResetHoveredGrids();

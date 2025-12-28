@@ -5,6 +5,7 @@ using UnityEngine;
 public class BubbleMemory : MonoBehaviour
 {
     private bool playerInTheArea;
+    public Vector3 rotationSpeed = new Vector3(0, 0, 50f);
 
     private void Update()
     {
@@ -13,6 +14,8 @@ public class BubbleMemory : MonoBehaviour
             BubbleMemoryController.singleton.CollectedMemory();
             Destroy(gameObject);
         }
+
+        transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

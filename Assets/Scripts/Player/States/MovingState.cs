@@ -60,7 +60,7 @@ public class MovingState : Player
             player.SwitchState(player.dashState);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && player.isGrounded())
+        if (Input.GetKey(KeyCode.LeftShift) && player.isGrounded() && player.canRun)
         {
             player.SwitchState(player.runState);
         }

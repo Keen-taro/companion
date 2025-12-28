@@ -417,20 +417,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 814045776414056748, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
       insertIndex: 4
       addedObject: {fileID: 3812006633088142471}
-    - targetCorrespondingSourceObject: {fileID: 814045776414056748, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1818627383790900132}
   m_SourcePrefab: {fileID: 100100000, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
---- !u!50 &2377359359893105079 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 5426026299022254872, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
-  m_PrefabInstance: {fileID: 7760561522308729519}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2620992106799551660 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5759171509195447811, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
-  m_PrefabInstance: {fileID: 7760561522308729519}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4867441622898367770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2900227761082210229, guid: 8423cda44300b7047a1fb746ec0b066e, type: 3}
@@ -655,42 +642,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1818627383790900132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6989340074665569155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce53823002238104bac15396cde47c14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5819898877365424631}
-  spawnPoint: {fileID: 0}
-  groundChecker: {fileID: 2620992106799551660}
-  _trailRenderer: {fileID: 7717934494662773154}
-  isFacingRight: 1
-  isJumping: 0
-  isRunning: 0
-  isReading: 0
-  canMove: 1
-  sanity: 0
-  stateTime: 0
-  playerStats: {fileID: 11400000, guid: b6a63e0acd0c4534080e7f609d2634d2, type: 2}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  respawnTransition: {fileID: 0}
-  audioStepClip:
-  - {fileID: 8300000, guid: b56f70bc1f7ccea42ae450d374c77575, type: 3}
-  - {fileID: 8300000, guid: db2a88ea63a7b0147983ad7c6d20a67e, type: 3}
-  - {fileID: 8300000, guid: a2d3cf56ad52f1f4aab399b850addf60, type: 3}
-  - {fileID: 8300000, guid: 4a15feb615a96fa49acb4b8e4e00b69f, type: 3}
-  - {fileID: 8300000, guid: 159887b09b3d64d4ca9a5c57dd99602b, type: 3}
-  hurtAudioClip: {fileID: 8300000, guid: 69c1dcb49967785429c32198259aa5b2, type: 3}
-  collectedMemory: {fileID: 8300000, guid: a2b5c58d4556602449f1a5d0dd4e01f3, type: 3}
-  rb: {fileID: 2377359359893105079}
-  attackCollider: {fileID: 2293054409840665313}
-  attackColliderHandler: {fileID: 4950060100157014726}

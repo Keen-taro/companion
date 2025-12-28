@@ -13,6 +13,10 @@ TagManager:
   - Nulify
   - AudioButton
   - Cawan
+  - Whisp
+  - DarkPlace
+  - DialogueBox
+  - Glyph
   layers:
   - Default
   - TransparentFX
@@ -26,7 +30,7 @@ TagManager:
   - Enemies
   - Player
   - Attack
-  - 
+  - Bloom
   - 
   - 
   - 

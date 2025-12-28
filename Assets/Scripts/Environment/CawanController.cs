@@ -1,102 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class CawanController : MonoBehaviour
 {
-    [SerializeField]
-    private bool isLit;
-    [SerializeField]
-    private bool insideAreaInteract;
-    [SerializeField]
-    private bool canOpenTeleportList = false;
-    [SerializeField]
-    private float maxSanityRestore = 10f;
+    [Header("State")]
+    [SerializeField] private bool isLit;
+    [SerializeField] private bool insideAreaInteract;
 
-    [SerializeField]
-    private Button buttonAvailable;
+    [Header("Recharge Settings")]
+    [Tooltip("Berapa banyak energi yang diisi per detik")]
+    [SerializeField] private float rechargeRate = 20f; // Misal: 20 per detik (5 detik full kalau max 100)
 
-    [SerializeField] 
-    private ParticleSystem fireParticle;
-    [SerializeField]
-    private GameObject restoreAreaBloomEffect;
+    private LightBehaviour wispScript; // Referensi ke script Wisp
+
+    [Header("Components")]
+    [SerializeField] private ParticleSystem fireParticle;
+    [SerializeField] private AudioClip fireSound;
     private AudioSource audioSource;
-    [SerializeField]
-    private AudioClip fireSound;
-    [SerializeField]
-    private Transform checkPointSpawn;
-
-    private PlayerStateMachine players;
 
     private void Awake()
     {
-        fireParticle.Stop();
         audioSource = GetComponent<AudioSource>();
+        if (fireParticle != null) fireParticle.Stop();
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        players = player.GetComponent<PlayerStateMachine>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            insideAreaInteract = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            insideAreaInteract = false;
-            UI_Teleport_Menu.singelton.DisableTeleporterUI();
-        }
+        // Otomatis cari Wisp di scene
+        wispScript = FindObjectOfType<LightBehaviour>();
     }
 
     private void Update()
     {
-        LightTheFire();
-        OpenTeleportList();
-    }
-
-    private void LightTheFire()
-    {
+        // 1. Logic Nyalakan Api (Checkpoint)
         if (insideAreaInteract && !isLit && Input.GetKeyDown(KeyCode.F))
         {
-            isLit = true;
-            fireParticle.Play();
+            IgniteProcess();
+        }
 
+        // 2. Logic RECHARGE (Mengisi Energi)
+        // Syarat: Api nyala + Player di area + Script Wisp ditemukan
+    }
+
+    private void IgniteProcess()
+    {
+        isLit = true;
+        if (fireParticle != null) fireParticle.Play();
+        if (audioSource != null && fireSound != null)
+        {
             audioSource.clip = fireSound;
             audioSource.loop = true;
             audioSource.Play();
-
-            restoreAreaBloomEffect.SetActive(true);
-
-            checkPointSpawn.gameObject.SetActive(true);
-
-            buttonAvailable.interactable = true;
-
-            players.SetSpawnOnCheckPoint(checkPointSpawn);
-
-            players.SanityIncreases(maxSanityRestore);
-
-            StartCoroutine(DelayBeforeOpeningTeleportList());
         }
     }
 
-    private void OpenTeleportList()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (insideAreaInteract && canOpenTeleportList && isLit && Input.GetKeyDown(KeyCode.F))
-        {
-            UI_Teleport_Menu.singelton.EnableTeleporterUI();
-        }
+        if (collision.CompareTag("Player")) insideAreaInteract = true;
     }
 
-    private IEnumerator DelayBeforeOpeningTeleportList()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        yield return new WaitForSeconds(2f); // Adjust delay duration as needed
-        canOpenTeleportList = true;
+        if (collision.CompareTag("Player")) insideAreaInteract = false;
     }
 }

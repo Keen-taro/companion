@@ -18,6 +18,7 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
     public bool isRunning;
     public bool isReading = false;
     public bool canMove;
+    public bool canRun;
 
     public float sanity;
     public float stateTime;
@@ -75,6 +76,7 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
         sanity = playerStats.maxSanityPoint;
         playerStats.dashingTime = 0;
         canMove = false;
+        canRun = false;
         playerStats.isDie = false;
         playerStats._canDash = true;
 
@@ -154,6 +156,31 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
         SwitchState(idleState);
     }
 
+    /*
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Whisp"))
+        {
+            LightBehaviour whisp = collision.GetComponent<LightBehaviour>();
+
+            //Debug.Log("You Near the Whisp");
+
+            if (whisp != null)
+            {
+                if (whisp.isGlowing)
+                {
+                    canRun = true;
+                }
+                else
+                {
+                    canRun = false;
+                }
+                
+            }
+        }
+    }
+    */
+
     #region Ground Check
 
     public bool isGrounded()
@@ -183,6 +210,16 @@ public class PlayerStateMachine : MonoBehaviour, IDamageable
     #endregion
 
     #region Status 
+
+    public void EnableControl()
+    {
+        canMove = true;
+    }
+
+    public void DisableControl()
+    {
+        canMove = false;
+    }
 
     public void SetSpawnOnCheckPoint(Transform checkPoint)
     {
