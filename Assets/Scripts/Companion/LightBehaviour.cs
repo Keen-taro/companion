@@ -37,6 +37,8 @@ public class LightBehaviour : MonoBehaviour
     private Vector2 targetPosition;
     private Vector2 baseIdlePosition; // Titik pusat saat floating
 
+    public bool isInCutScene;
+
     void Start()
     {
         // Set posisi awal sebagai base idle
@@ -123,6 +125,8 @@ public class LightBehaviour : MonoBehaviour
     // (Sama seperti sebelumnya, tidak ada perubahan)
     void HandleEnergy()
     {
+        if (isInCutScene) return;
+        
         // KONDISI 1: SEDANG CHARGING
         if (currentState == WispState.Charging)
         {
@@ -156,6 +160,16 @@ public class LightBehaviour : MonoBehaviour
             // Batas bawah energi 0
             if (currentEnergy <= 0) currentEnergy = 0;
         }
+    }
+
+    public void SwitchStateAfterCutScene()
+    {
+        currentState = WispState.Idle;
+    }
+
+    public void SwitchCutSceneBoolean()
+    {
+        isInCutScene = !isInCutScene;
     }
 
     void UpdateVisuals()

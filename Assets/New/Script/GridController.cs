@@ -89,7 +89,7 @@ public class GridController : MonoBehaviour
         int penalty = (wrongSubmitCount * 5) + (resetCount * 10);
 
         // Hitung penalti waktu (opsional, misal -1 per 10 detik lewat dari 1.5 menit)
-        if (timeElapsed > 240)
+        if (timeElapsed > 90)
         {
             penalty += Mathf.FloorToInt((timeElapsed - 60) / 10f);
         }

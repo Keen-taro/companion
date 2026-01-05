@@ -10,6 +10,7 @@ public class AdvancedText : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI textElement;
     private GameObject dialogueBox;
+    private GameObject block;
 
     [Header("Settings")]
     public float charDelay = 0.05f; // Dipercepat default-nya biar enak
@@ -34,6 +35,8 @@ public class AdvancedText : MonoBehaviour
     private bool isTyping = false;
     private bool finishedAll = false;
 
+    public bool isHint;
+
     // Action untuk script lain (Grid/Controller) yang ingin 'menunggu' via code
     public System.Action OnAllDialogueFinishedAction;
 
@@ -42,6 +45,7 @@ public class AdvancedText : MonoBehaviour
     private void Awake()
     {
         dialogueBox = GameObject.FindWithTag("DialogueBox");
+        block = GameObject.FindWithTag("UIBlock");
     }
 
     void Start()
@@ -51,6 +55,11 @@ public class AdvancedText : MonoBehaviour
         {
             dialogueBox.GetComponent<Image>().enabled = true;
 
+            if (isHint)
+            {
+                block.GetComponent<Image>().enabled = true;
+            }
+            
             StartDialogue(linesToPlayOnStart);
         }
 
@@ -132,14 +141,12 @@ public class AdvancedText : MonoBehaviour
         finishedAll = true;
         Debug.Log("Finished");
         textElement.text = string.Empty;
+
         dialogueBox.GetComponent<Image>().enabled = false;
+        block.GetComponent<Image>().enabled = false;
 
-        // Jangan di-reset text-nya, biarkan kalimat terakhir terlihat
-
-        // 1. Panggil Event Inspector (Untuk Intro -> Buka Puzzle)
         if (OnDialogueComplete != null) OnDialogueComplete.Invoke();
 
-        // 2. Panggil Action Code (Untuk Grid yang menunggu)
         if (OnAllDialogueFinishedAction != null) OnAllDialogueFinishedAction.Invoke();
     }
 

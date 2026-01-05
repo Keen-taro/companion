@@ -17,6 +17,7 @@ TagManager:
   - DarkPlace
   - DialogueBox
   - Glyph
+  - UIBlock
   layers:
   - Default
   - TransparentFX

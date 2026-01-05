@@ -115,8 +115,6 @@ public class PuzzleController : MonoBehaviour
         {
             activeGridScript.CheckAnswer();
         }
-
-        
     }
 
     public void OnResetButtonPressed()
