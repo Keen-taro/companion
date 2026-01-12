@@ -1,19 +1,14 @@
 # Companion - Game Puzzle Side-Scrolling 2D
 
 ## 🎮 Deskripsi
-Repositori ini dibuat sebagai bagian dari **Tugas Akhir** yang bertujuan untuk mengembangkan sebuah permainan puzzle berbasis **side-scrolling 2D** dengan konsep **kooperatif**.  
-Permainan ini dirancang untuk melatih keterampilan **problem solving** pemain melalui integrasi tiga jenis puzzle utama:
-- Puzzle logika  
-- Puzzle pengenalan pola  
-- Puzzle riddle  
-
+Repositori ini dibuat sebagai bagian dari **Tugas Akhir** yang bertujuan untuk mengembangkan sebuah permainan puzzle berbasis **side-scrolling 2D** dengan konsep **kooperatif**.   
 Game dikembangkan menggunakan **Unity** dan menerapkan metode **Game Development Life Cycle (GDLC)** yang meliputi tahap praproduksi, produksi, hingga pengujian.
 
 ---
 
 ## 🎯 Tujuan
 - Menyelesaikan Tugas Akhir sebagai syarat kelulusan program sarjana.  
-- Menghasilkan media interaktif berupa permainan puzzle yang **menantang sekaligus edukatif**.  
+- Menghasilkan media interaktif berupa permainan puzzle.  
 - Memberikan kontribusi pada pemanfaatan **game sebagai sarana peningkatan keterampilan problem solving**.  
 
 ---
